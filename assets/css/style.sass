@@ -1,0 +1,188 @@
+@tailwind base
+@layer base
+  @font-face
+    font-family: "VAZIR"
+    src: url("~/assets/fonts/vazir-matn.woff2") format('woff2 supports variations'), url("~/assets/fonts/vazir-matn.woff2") format('woff2-variations')
+    font-weight: 100 1000
+  @font-face
+    font-family: "yekan"
+    src: url("~/assets/fonts/IRANYekanXVF.woff2") format('woff2 supports variations'), url("~/assets/fonts/IRANYekanXVF.woff2") format('woff2-variations')
+    font-weight: 100 1000
+  :root
+    --el-menu-item-height: 40px !important
+    --el-menu-icon-width: 17px !important
+  html
+    font-family: 'yekan', Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif
+    @apply bg-stone-50 font-light
+.el-icon
+  width: 15px !important
+  height: 15px !important
+  svg
+    width: 15px !important
+    height: 15px !important
+.is-loading
+  .el-icon
+    animation: rotating 2s linear infinite
+.stacked
+  .el-button
+    & + .el-button
+      margin-left: unset !important
+.el-switch:not(.el-switch--small):not(.el-switch--large)
+  height: 22px !important
+.main-menu
+  @apply h-full flex flex-col
+  .el-sub-menu
+    .el-sub-menu__title
+      @apply px-5
+    .el-sub-menu__icon-arrow
+      left: auto
+  .nav-footer
+    @apply cursor-default bg-indigo-900 h-[26px] pl-2
+  &:not(.el-menu--collapse)
+    width: 200px
+  .app-title
+    @apply cursor-default bg-indigo-700
+    &:hover
+      @apply bg-indigo-700
+    span
+      @apply font-bold
+  .el-menu-item
+    [class^=el-icon]
+      @apply justify-center
+.el-input__wrapper,.el-date-editor.el-input, .el-date-editor.el-input__wrapper
+  @apply w-full #{!important}
+.el-select-v2__suffix
+  @apply items-center
+.el-select-v2
+  @apply w-full
+.el-select-dropdown__option-item
+  @apply flex flex-row-reverse
+._my-2
+  @apply my-2 #{!important}
+.stacked
+  button
+    @apply justify-evenly
+.el-select-v2.prefix
+  .el-select-v2__wrapper
+    .el-select-v2__input-wrapper
+      margin-inline-start: 0 !important
+    .el-select-v2__placeholder
+      margin-inline-start: 34px
+    &.is-filterable
+      .el-select-v2__placeholder
+        margin-inline-start: 40px
+  svg
+    color: var(--el-input-icon-color, var(--el-text-color-placeholder))
+.el-tag.flexible
+  .el-tag__content
+    @apply flex gap-1 items-center
+    div
+      @apply px-2 border-x mb-[-2px]
+.perm-check-list
+  @apply mb-2 w-full
+  .el-tag__content
+    @apply flex justify-between w-full
+    .el-checkbox__label
+      @apply truncate max-w-[130px]
+    .el-checkbox-group
+      @apply flex items-center -mr-2
+      .el-checkbox
+        @apply mx-[2px]
+.el-cascader-node__prefix,
+.el-cascader-node__postfix
+  @apply absolute #{!important}
+.el-cascader-node__postfix
+  @apply -scale-100
+.acceptations
+  @apply flex gap-0 border-2 rounded mb-2
+  &:hover
+    @apply border-gray-300
+  &:focus-within
+    @apply border-sky-200
+  .row
+    @apply flex justify-center items-center text-gray-500 w-40 bg-gray-200
+  .el-input__wrapper
+    @apply shadow-none rounded-none
+    &.is-focus
+      @apply shadow-none bg-sky-100
+    &:hover
+      @apply shadow-none
+    &:focus
+      @apply shadow-none
+  .el-button
+    @apply rounded rounded-l-none h-[38px] relative -top-[2px] -right-[2px] -mb-[4px] -ml-[2px]
+.acceptations-error
+  @apply text-rose-500 mb-2 -mt-1 text-xs px-3
+.el-badge__content.is-fixed.is-dot
+  @apply -left-[5px] top-[7px]
+  @apply right-0 #{!important}
+
+.order-page
+  .el-empty
+    @apply py-2
+  .el-empty__image
+    width: 80px !important
+  .el-empty__description
+    @apply mt-0
+
+
+
+.fade-enter-from, .fade-leave-to
+  opacity: 0
+  transform: translateY(-20px)
+
+
+.fade-enter-to, .fade-leave-from
+  opacity: 1
+  transform: translateY(0px)
+
+$transition-duration: 0.15s
+
+.fade-enter-active,.fade-leave-active
+  transition: opacity $transition-duration ease-in-out, transform $transition-duration ease-in-out
+
+.el-checkbox-button--small
+  .el-checkbox-button__inner
+    padding: 3px 4px 0 !important
+    font-size: 10px !important
+.el-select-v2__wrapper
+  flex-wrap: nowrap !important
+.custom-header
+  .el-dialog__header
+    @apply m-0 p-0
+*[water-mark]
+  @apply relative
+  *
+    @apply z-10
+  &::before
+    content: attr(water-mark)
+    @apply absolute font-extrabold text-8xl z-0 w-full h-full flex justify-center items-center -rotate-[20deg]
+.fill
+  .el-alert__content
+    @apply w-full
+/*rtl:begin:ignore*/
+[dir="rtl"]
+  .el-picker-panel__icon-btn
+    .el-icon
+      @apply rotate-180
+  .el-popper[data-popper-placement^=right]
+    & > .el-popper__arrow
+      left: -5px
+      right: auto
+  .el-popper[data-popper-placement^=left]
+    & > .el-popper__arrow
+      right: -5px
+      left: auto
+  .el-pagination
+    .btn-prev,.btn-next
+      .el-icon
+        @apply rotate-180
+  .el-checkbox__input
+    .el-checkbox__inner::after
+      border-right: 1px solid var(--el-checkbox-checked-icon-color)
+      border-left: 0
+    &.is-checked
+      .el-checkbox__inner::after
+        transform: rotate(45deg) scaleY(1)
+/*rtl:end:ignore*/
+

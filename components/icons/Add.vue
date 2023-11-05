@@ -1,0 +1,10 @@
+
+<template>
+<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 15 15"><path fill="none" stroke="currentColor" d="M7.5 1v13M1 7.5h13"></path></svg>
+</template>
+
+<script lang="ts">
+export default {
+  name: 'Add'
+}
+</script>
