@@ -14,11 +14,13 @@ const disabled:Ref<boolean> = ref(!(props.item.route?.name && useRouter().hasRou
 el-sub-menu(v-if="item.items && item.items.length > 0" :index="`sub_${index}`")
   template(#title)
     el-icon
-      icon(:name="item.icon")
+      //- icon(:name="item.icon")
+      div(:class="item.icon")
     span.ml-2 {{ item.label }}
   app-menu-item(v-for="(_item,i) in item.items" :key="i" :item="_item" :index="`${index}_${i+1}`")
 el-menu-item(v-else :index="`item_${index}`" :route="item.route" :disabled="disabled")
   el-icon
-    icon(:name="item.icon")
+    //- icon(:name="item.icon")
+    div(:class="item.icon")
   span.ml-2 {{ item.label }}
 </template>

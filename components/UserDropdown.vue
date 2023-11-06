@@ -31,7 +31,8 @@ const logout = async () => {
 el-dropdown(trigger="click")
   el-button(text circle)
     template(#icon)
-      icon(name="material-symbols:account-circle-full" size="15px")
+      //- icon(name="material-symbols:account-circle-full" size="15px")
+      .i-material-symbols-account-circle-full
   template(#dropdown)
     .flex.items-center.p-2.w-40
       el-avatar(:icon="UserFilled" shape="square" )

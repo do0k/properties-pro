@@ -1,19 +1,28 @@
-@tailwind base
-@layer base
-  @font-face
-    font-family: "VAZIR"
-    src: url("~/assets/fonts/vazir-matn.woff2") format('woff2 supports variations'), url("~/assets/fonts/vazir-matn.woff2") format('woff2-variations')
-    font-weight: 100 1000
-  @font-face
-    font-family: "yekan"
-    src: url("~/assets/fonts/IRANYekanXVF.woff2") format('woff2 supports variations'), url("~/assets/fonts/IRANYekanXVF.woff2") format('woff2-variations')
-    font-weight: 100 1000
-  :root
-    --el-menu-item-height: 40px !important
-    --el-menu-icon-width: 17px !important
-  html
-    font-family: 'yekan', Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif
-    @apply bg-stone-50 font-light
+// @tailwind base
+// @layer base
+* 
+  font-family: inherit
+  -moz-font-feature-settings: "ss02"
+  -webkit-font-feature-settings: "ss02"
+  font-feature-settings: "ss02"
+.mono
+  -moz-font-feature-settings: "ss03"
+  -webkit-font-feature-settings: "ss03"
+  font-feature-settings: "ss03"
+@font-face
+  font-family: "VAZIR"
+  src: url("~/assets/fonts/vazir-matn.woff2") format('woff2 supports variations'), url("~/assets/fonts/vazir-matn.woff2") format('woff2-variations')
+  font-weight: 100 1000
+@font-face
+  font-family: "yekan"
+  src: url("~/assets/fonts/IRANYekanXVF.woff2") format('woff2 supports variations'), url("~/assets/fonts/IRANYekanXVF.woff2") format('woff2-variations')
+  font-weight: 100 1000
+:root
+  --el-menu-item-height: 40px !important
+  --el-menu-icon-width: 17px !important
+html
+  font-family: 'yekan', Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif
+  @apply bg-stone-50 font-light
 .el-icon
   width: 15px !important
   height: 15px !important
@@ -136,7 +145,7 @@
   opacity: 1
   transform: translateY(0px)
 
-$transition-duration: 0.15s
+$transition-duration: 0.35s
 
 .fade-enter-active,.fade-leave-active
   transition: opacity $transition-duration ease-in-out, transform $transition-duration ease-in-out

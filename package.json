@@ -13,9 +13,7 @@
     "@nuxt/devtools": "latest",
     "nuxt": "^3.8.0",
     "vue": "^3.3.7",
-    "vue-router": "^4.2.5"
-  },
-  "dependencies": {
+    "vue-router": "^4.2.5",
     "@element-plus/nuxt": "^1.0.6",
     "@iconify/json": "^2.2.137",
     "@prisma/client": "^5.5.2",

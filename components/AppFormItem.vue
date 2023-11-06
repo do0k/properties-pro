@@ -19,18 +19,6 @@ const fixed:Ref<boolean> = ref(false)
 watch(() => props.field.value, (value) => {
   emit('update:modelValue', value)
 })
-
-onMounted(() => {
-  if (props.field.type === 'scale') {
-    const { $socket } = useNuxtApp()
-    $socket.on('scale', (_weight: string, _fixed) => {
-      if (parseInt(_weight) > 0) {
-        emit('update:modelValue', _weight)
-        fixed.value = _fixed
-      }
-    })
-  }
-})
 </script>
 
 <template lang="pug">

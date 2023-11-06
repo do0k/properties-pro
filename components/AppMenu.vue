@@ -32,7 +32,8 @@ el-aside(width="auto")
   )
     .el-menu-item.app-title
       el-icon
-        icon(name="teenyicons:grid-layout-outline" size="15px")
+        //- icon(name="teenyicons:grid-layout-outline" size="15px")
+        .i-teenyicons-grid-layout-outline
       span.ml-2 فارکو سیستم
     el-skeleton(:loading="pending", animated style="--el-skeleton-color: #5a58d3; --el-skeleton-to-color: #4b4abf;")
       template(#template)

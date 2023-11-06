@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import locale from '~/locales/fa/element-plus-locale.mjs'
+
 useHead({
   htmlAttrs: {
     lang: 'fa',
