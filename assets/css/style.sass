@@ -1,5 +1,6 @@
 // @tailwind base
 // @layer base
+@import '@unocss/reset/tailwind'
 * 
   font-family: inherit
   -moz-font-feature-settings: "ss02"
@@ -58,6 +59,8 @@ html
   .el-menu-item
     [class^=el-icon]
       @apply justify-center
+    &.is-active
+      background-color: rgba(0, 0, 0, 0.3)
 .el-input__wrapper,.el-date-editor.el-input, .el-date-editor.el-input__wrapper
   @apply w-full #{!important}
 .el-select-v2__suffix

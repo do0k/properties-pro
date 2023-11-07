@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 definePageMeta({
-  title: 'سلام دنیا'
+  title: 'سلام دنیا',
 })
 </script>
 

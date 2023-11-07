@@ -38,8 +38,8 @@ el-dropdown(trigger="click")
       el-avatar(:icon="UserFilled" shape="square" )
       el-divider(direction="vertical")
       .font-bold(v-if="user")
-        .text-indigo-600 {{ user?.profile.name }} {{ user?.profile.family }}
-        .text-indigo-300 {{ user?.roles[0].role?.name }}
+        .text-indigo-600 {{ user?.name }}
+        .text-indigo-300 {{ user?.role === 'ADMIN' ? 'کاربر مدیر' : 'مستاجر' }}
     el-divider._my-2
     .flex.flex-col.gap-2.p-2.stacked
       el-button(:icon="Settings" plain round) تنظیمات حساب

@@ -3,8 +3,8 @@ definePageMeta({
 	layout: "auth",
 	auth: {
 		unauthenticatedOnly: true,
-		navigateAuthenticatedTo: "/",
-	},
+    navigateAuthenticatedTo: '/',
+	}
 });
 useHead({
 	title: "ورود به سیستم",
@@ -56,15 +56,13 @@ const sendOtp = async (e: Event) => {
 	}
 };
 
-const login = async (e: Event) => {
-	e.preventDefault();
+const login = async () => {
 	loading.value = true;
 	try {
-		const { error, url, ok } = await signIn("otp-auth", {
+		const {ok, url, error} = await signIn("credentials", {
 			code: code.value,
 			otp: otp.value,
-			redirect: false,
-			callbackUrl: undefined,
+			redirect: false
 		});
 		if (error) {
 			ElMessage({
@@ -81,13 +79,12 @@ const login = async (e: Event) => {
 			});
 		}
 		if (ok && url) {
-			const route = getRouteFromUrl(url);
-			await navigateTo(route === "/auth/login" ? "/" : route, {
-				replace: true,
-				redirectCode: 301,
-			});
-		}
-	} catch (e) {}
+      const route = getRouteFromUrl(url)
+      await navigateTo(route === '/auth/login' ? '/' : route, { replace: true, redirectCode: 301 })
+    }
+	} catch (e) {
+		console.log(e)
+	}
 	loading.value = false;
 };
 </script>
@@ -137,12 +134,8 @@ const login = async (e: Event) => {
           @keydown.enter="login"
         ).mb-2
           template(#prepend)
-            //- icon(name="teenyicons:password-outline" size="15px" ).text-sky-600
             .text-sky-600.i-teenyicons-password-outline
       el-button(type="primary" :loading="loading" @click="login").w-full ورود به سیستم
         template(#loading)
-          //- icon(name="svg-spinners:90-ring-with-bg" size="22px" ).mx-4
           .mx-4.i-svg-spinners-90-ring-with-bg
-    //- el-divider یا
-    //- el-button().w-full بازیابی رمزورود
 </template>

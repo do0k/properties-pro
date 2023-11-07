@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { Ref } from 'vue'
 import locale from '~/locales/fa/element-plus-locale.mjs'
+
 useHead({
   htmlAttrs: {
     lang: 'fa',

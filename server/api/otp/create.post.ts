@@ -16,6 +16,11 @@ export default defineEventHandler(async (event) => {
 			message: "کاربری با این کدملی یافت نشد",
 			statusCode: 404,
 		});
+	if (user.mobile !== mobile)
+		throw createError({
+			message: "شماره موبایل واردشده متعلق به این کدملی نمی باشد",
+			statusCode: 404,
+		});
 	if (new Date(user.expire) > new Date()) {
 		return {
 			message:
@@ -49,7 +54,7 @@ export default defineEventHandler(async (event) => {
 				body: {
 					pattern_code: "z4avu5wdy824gpq",
 					originator: "+983000505",
-					recipient: String(mobile),
+					recipient: String(user.mobile),
 					values: {
 						otp,
 					},

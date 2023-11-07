@@ -1,50 +1,47 @@
+// import type { AuthConfig } from "@auth/core/types";
 import { NuxtAuthHandler } from "#auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+// import Credentials from "@auth/core/providers/credentials";
+import CredentialsProvider from 'next-auth/providers/credentials'
 import { db } from "~/server/db";
 
 export default NuxtAuthHandler({
 	secret: useRuntimeConfig().authSecret,
 	providers: [
-		// @ts-expect-errors
+		// @ts-expect-error
 		CredentialsProvider.default({
-			name: "otp-auth",
-			credentials: {
-				code: { label: "کدملی", type: "text" },
-				otp: { label: "کدتایید", type: "text" },
-			},
-			authorize: async (credentials: { code: string; otp: string }) => {
+			name: "credentials",
+			credentials: {},
+			authorize: async (credentials: { otp: string; code: string }) => {
 				try {
-					const user = await db.user.findUnique({ where: { code: credentials.code } });
-					console.log(user)
+					const user = await db.user.findUnique({
+						where: { code: String(credentials.code) },
+					});
 					if (!user)
 						throw createError({
 							message: "کاربر با کدملی وارد شده وجود ندارد",
 							statusCode: 404,
 						});
 					if (user && (!user.expire || new Date(user.expire) < new Date()))
-					console.log('error date')
 						throw createError({
 							message: "کدتایید وارد شده اشتباه است و یا منقضی شده است",
 							statusCode: 422,
 						});
 					if (user) {
-						console.log('user')
-						const auth = user.otp === credentials.otp;
+						const auth = user.otp === String(credentials.otp);
 						if (auth) {
-							console.log('auth')
-							delete user.otp;
-							delete user.expire;
 							return {
 								id: user.id,
-								name: user,
+								name: user
 							};
 						}
 					}
 				} catch (e) {
-					console.log('error')
-					throw createError({ message: 'مقادیر ورودی اشتباه است یا وارد نشده است', statusCode: 422 })
+					throw createError({
+						message: "مقادیر ورودی اشتباه است یا وارد نشده است",
+						statusCode: 422,
+					});
 				}
-				return null
+				return null;
 			},
 		}),
 	],
@@ -52,23 +49,30 @@ export default NuxtAuthHandler({
 		strategy: "jwt",
 	},
 	callbacks: {
-		signIn: ({ user }) => {
-      return !!user
-    },
-    redirect: ({ url, baseUrl }) => {
-      let _URL = baseUrl
-      if (url.startsWith('/')) { _URL = `${baseUrl}${url}` } else if (new URL(url).origin === baseUrl) { _URL = url }
-      return _URL
-    },
-    jwt: (req) => {
-      return req.token
-    },
-    session: (req) => {
-      return req.session
-    }
+		redirect: ({ url, baseUrl }) => {
+		  let _URL = baseUrl
+		  if (url.startsWith('/')) { _URL = `${baseUrl}${url}` } else if (new URL(url).origin === baseUrl) { _URL = url }
+		  return _URL
+		},
+		jwt: ({ token, user, account }) => {
+			if (user) {
+				token = {
+					...token,
+					...user,
+				};
+			}
+			return token;
+		},
+		session: ({ session, token }) => {
+			session.user = {
+				...token,
+				...session.user,
+			};
+			return session;
+		},
 	},
 	pages: {
 		signIn: "/auth/login",
 		error: "/auth/login",
 	},
-});
+})
