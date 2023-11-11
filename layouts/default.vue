@@ -7,7 +7,7 @@ useHead({
     lang: 'fa',
     dir: 'rtl'
   },
-  titleTemplate: title => `فارکو :: ${title}`
+  titleTemplate: title => `سامانه اماکن :: ${title}`
 })
 const collapse = ref(false)
 const loading:Ref<boolean> = ref(true)
@@ -31,6 +31,7 @@ el-config-provider(:locale="locale")
       el-main
         .bg-white.rounded-xl.h-full
           slot
-      el-footer(height="26px").bg-zinc-200.text-zinc-600.flex.items-center
-        .my-1.text-sm مجتمع فروآلیاژ رباط کرمان
+      el-footer(height="26px").bg-zinc-200.text-zinc-600.flex.items-center.justify-between
+        .my-1.text-sm پایگاه پدافند هوایی کیش
+        .my-1.text-sm طراحی و راه اندازی توسط گروه فناوری اطلاعات پاساک
 </template>

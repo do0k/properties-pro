@@ -20,7 +20,7 @@ const defaultActive = computed(() => getCurrentRouteIndex(data.value as MenuItem
 </script>
 
 <template lang="pug">
-el-aside(width="auto").h-screen
+el-aside(width="auto")
   el-menu.main-menu(
     router
     unique-opened
@@ -29,11 +29,11 @@ el-aside(width="auto").h-screen
     background-color="#3730a3"
     active-text-color="#fef9c3"
     text-color="#fff"
-  ).h-screen
+  )
     .el-menu-item.app-title
       el-icon
         icon(name="teenyicons:grid-layout-outline" size="15px")
-      span.ml-2 سامانه مدیریت اماکن
+      span.ml-2 سامانه اماکن
     el-skeleton(:loading="pending", animated style="--el-skeleton-color: #5a58d3; --el-skeleton-to-color: #4b4abf;")
       template(#template)
         .flex.justify-between.items-center.px-3.gap-3.my-3(v-for="i in [1,2,3,4,5,6,7,8,9,10]" :key="i")

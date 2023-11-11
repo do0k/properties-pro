@@ -31,15 +31,14 @@ const logout = async () => {
 el-dropdown(trigger="click")
   el-button(text circle)
     template(#icon)
-      //- icon(name="material-symbols:account-circle-full" size="15px")
-      .i-material-symbols-account-circle-full
+      icon(name="material-symbols:account-circle-full" size="15px")
   template(#dropdown)
     .flex.items-center.p-2.w-40
       el-avatar(:icon="UserFilled" shape="square" )
       el-divider(direction="vertical")
       .font-bold(v-if="user")
-        .text-indigo-600 {{ user?.name }}
-        .text-indigo-300 {{ user?.role === 'ADMIN' ? 'کاربر مدیر' : 'مستاجر' }}
+        //- .text-indigo-600 {{ user?.name }}
+        //- .text-indigo-300 {{ user?.role.name }}
     el-divider._my-2
     .flex.flex-col.gap-2.p-2.stacked
       el-button(:icon="Settings" plain round) تنظیمات حساب

@@ -14,7 +14,7 @@ export default NuxtAuthHandler({
 			authorize: async (credentials: { otp: string; code: string }) => {
 				try {
 					const user = await db.user.findUnique({
-						where: { code: String(credentials.code) },
+						where: { code: String(credentials.code) }
 					});
 					if (!user)
 						throw createError({

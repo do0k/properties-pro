@@ -7,11 +7,10 @@ defineProps<{
 </script>
 
 <template lang="pug">
-.el__bar
+.el__bar(class="m-[-1.3rem]")
   .mr-2
     slot(name="icon")
-      //- icon(v-if="icon" :name="icon" :size="iconSize || '1rem'")
-      div(v-if="icon" :class="icon" :size="iconSize || '1rem'")
+      icon(v-if="icon" :name="icon" :size="iconSize || '1rem'")
   .flex-auto.font-bold.text-sm
     slot {{ title }}
   .ml-auto

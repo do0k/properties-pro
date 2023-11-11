@@ -12,7 +12,7 @@ datasource db {
 
 model User {
   id         Int         @id @default(autoincrement())
-  code       String         @unique
+  code       String      @unique
   otp        String?
   expire     DateTime?   @db.Timestamptz()
   name       String
@@ -22,9 +22,20 @@ model User {
   deletedAt  DateTime?   @db.Timestamptz()
   properties Property[]
   agreements Agreement[]
-  role       UserRole
+  role       Role?
   payments   Payment[]
   orders     Order[]
+}
+
+model Role {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @unique
+  name      String
+  slug      String   @unique
+  perms     Json
+  createdAt DateTime @default(now()) @db.Timestamptz()
+  updatedAt DateTime @updatedAt @db.Timestamptz()
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model Property {

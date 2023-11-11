@@ -19,6 +19,18 @@ const fixed:Ref<boolean> = ref(false)
 watch(() => props.field.value, (value) => {
   emit('update:modelValue', value)
 })
+
+onMounted(() => {
+  if (props.field.type === 'scale') {
+    const { $socket } = useNuxtApp()
+    $socket.on('scale', (_weight: string, _fixed) => {
+      if (parseInt(_weight) > 0) {
+        emit('update:modelValue', _weight)
+        fixed.value = _fixed
+      }
+    })
+  }
+})
 </script>
 
 <template lang="pug">
@@ -70,6 +82,7 @@ el-form-item(v-else, :label="field.label" :prop="prop")
     template(#append)
       iconify(icon="ic:twotone-circle" :class="fixed ? 'text-emerald-500' : 'text-rose-500'" width="15px" height="15px")
       //- iconify(icon="svg-spinners:90-ring-with-bg" width="15px" height="15px")
+  el-switch(v-else-if="field.type === 'switch'" v-model="model" active-text="بلــه" inactive-text="خیــر")
   el-input(v-else v-model="model" :type="field.type" v-bind="field.props" clearable)
     template(v-if="!!icon", #prefix)
       iconify(:icon="icon" :width="size || '15px'" :height="size || '15px'")

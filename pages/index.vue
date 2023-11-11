@@ -1,9 +1,12 @@
 <script lang="ts" setup>
 definePageMeta({
-  title: 'سلام دنیا',
+  title: 'پیشخوان',
+})
+useHead({
+  title: 'پیشخوان'
 })
 </script>
 
 <template lang="pug">
-h1.text-amber-3.font-yekan سلام دنیا
+h1.text-amber-3.font-yekan پیشخوان
 </template>
