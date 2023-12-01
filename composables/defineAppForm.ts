@@ -1,6 +1,6 @@
 import type { FormInstance } from 'element-plus'
 import type { Ref } from 'vue'
-import type { AppFormFields, AppFormData } from '~/types'
+import type { AppFormFields, AppFormData } from '~'
 
 export const defineAppForm = (rawFields:AppFormFields):[AppFormFields, AppFormData, Ref<FormInstance>] => [
   reactive(rawFields),

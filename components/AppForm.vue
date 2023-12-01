@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus'
 import { reactive } from 'vue'
-import type { AppFormData, AppFormDataValue } from '~/types'
+import type { AppFormData, AppFormDataValue } from '~'
 
 globalThis.ASYNC_VALIDATOR_NO_WARNING = 1
 const props = defineProps<{

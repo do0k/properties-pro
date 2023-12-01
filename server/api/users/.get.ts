@@ -1,6 +1,6 @@
 import { db } from "~/server/db";
 import { Prisma } from "@prisma/client";
-import type { Filters } from "~/types";
+import type { Filters } from "~";
 
 export default defineEventHandler(async (event) => {
 	if (!event.context.user.can("users")) {

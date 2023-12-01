@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template lang="pug">
-.el__bar(class="m-[-1.3rem]")
+.el__bar(class="mx-[-1.3rem] !mt-[-1.3re]")
   .mr-2
     slot(name="icon")
       icon(v-if="icon" :name="icon" :size="iconSize || '1rem'")

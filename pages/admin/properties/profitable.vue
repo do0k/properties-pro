@@ -1,9 +1,7 @@
 <script lang="ts" setup>
-definePageMeta({
-	layout: 'user'
-})
+
 </script>
 
 <template lang="pug">
-h1 Hello Main Page
+h1  Hello
 </template>

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Icon as Iconify } from '@iconify/vue'
 import type { Ref } from 'vue'
-import type { AppFormFieldsRecord, AppFormFieldsValue } from '~/types'
+import type { AppFormFieldsRecord, AppFormFieldsValue } from '~'
 import { FFDigits, PlateFormatter } from '~/utils/formatters'
 
 const props = defineProps<{

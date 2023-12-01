@@ -1,7 +1,7 @@
 import type { RouteRecordName } from 'vue-router'
 import type { Ref } from 'vue'
 import type { FetchError } from 'ofetch'
-import type { Can, MenuItem } from '~/types'
+import type { Can, MenuItem } from '~'
 
 // noinspection JSUnusedGlobalSymbols
 export const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
@@ -38,7 +38,7 @@ export const getCurrentRouteIndex = (menu: Array<MenuItem> | null, routeName: Ro
 }
 
 export const err = (e:Ref<FetchError | null>) => {
-  if (e.value) {
+  if (e && e.value) {
     if (e.value?.statusCode === 422) {
       Object.keys(e.value?.data.data).forEach((key) => {
         ElMessage({

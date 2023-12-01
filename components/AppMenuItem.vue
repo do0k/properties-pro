@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Ref } from 'vue'
-import type { MenuItem } from '~/types'
+import type { MenuItem } from '~'
 
 const props = defineProps<{
   item:MenuItem,

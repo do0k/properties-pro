@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Ref } from 'vue'
-import type { NotifyGet } from '~/types'
+import type { NotifyGet } from '~'
 import { humanDate, err, randomNumber } from '~/utils/helpers'
 import { Refresh } from '~/components/icons'
 

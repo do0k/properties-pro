@@ -115,6 +115,9 @@ CREATE UNIQUE INDEX "User_mobile_key" ON "User"("mobile");
 -- CreateIndex
 CREATE UNIQUE INDEX "Role_userId_key" ON "Role"("userId");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "Role_slug_key" ON "Role"("slug");
+
 -- AddForeignKey
 ALTER TABLE "Role" ADD CONSTRAINT "Role_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 

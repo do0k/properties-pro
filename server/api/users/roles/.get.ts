@@ -1,12 +1,12 @@
 import { db } from "~/server/db";
 import { Prisma } from "@prisma/client";
-import type { Filters } from "~/types";
+import type { Filters } from "~";
 
 export default defineEventHandler(async (event) => {
 	if (!event.context.user.can("users")) {
 		throw createError({
 			statusCode: 403,
-			message: "شما مجوز دسترسی به کاربران را ندارید",
+			message: "شما مجوز دسترسی به نقش ها را ندارید",
 		});
 	}
 	const { page, size, order, orderBy, filters } = getQuery(event) as {

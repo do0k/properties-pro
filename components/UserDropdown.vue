@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { Ref } from 'vue'
 import { Ring, UserFilled, Power, Settings } from '@/components/icons'
-import type { AppUser } from '~/types'
+import type { AppUser } from '~'
 const { signOut, data } = await useAuth()
 
 const user:Ref<AppUser|null> = ref(data?.value?.user?.name as AppUser | null)
@@ -37,8 +37,8 @@ el-dropdown(trigger="click")
       el-avatar(:icon="UserFilled" shape="square" )
       el-divider(direction="vertical")
       .font-bold(v-if="user")
-        //- .text-indigo-600 {{ user?.name }}
-        //- .text-indigo-300 {{ user?.role.name }}
+        .text-indigo-600 {{ user?.name }}
+        //.text-indigo-300 {{ data.value.user?.role.name }}
     el-divider._my-2
     .flex.flex-col.gap-2.p-2.stacked
       el-button(:icon="Settings" plain round) تنظیمات حساب

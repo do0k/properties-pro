@@ -3,7 +3,7 @@ export default defineEventHandler((event) => {
 		{
 			label: "پیشخوان",
 			icon: "teenyicons:imac-outline",
-			route: { name: "index" },
+			route: { name: "admin" },
 			perm: "dashboard",
 		},
 		{
@@ -13,13 +13,13 @@ export default defineEventHandler((event) => {
 				{
 					label: "مدیریت کاربران",
 					icon: "teenyicons:users-outline",
-					route: { name: "users" },
+					route: { name: "admin-users" },
 					perm: "users.manage",
 				},
 				{
 					label: "مدیریت نقش ها",
 					icon: "teenyicons:shield-tick-outline",
-					route: { name: "users-roles" },
+					route: { name: "admin-users-roles" },
 					perm: "users.roles",
 				},
 			],
@@ -32,13 +32,13 @@ export default defineEventHandler((event) => {
 				{
 					label: "وضعیت اماکن",
 					icon: "teenyicons:home-outline",
-					route: { name: "reports-properties" },
+					route: { name: "admin-reports-properties" },
 					perm: "reports.properties"
 				},
 				{
 					label: "مالی",
 					icon: "teenyicons:dollar-outline",
-					route: { name: "reports-financial" },
+					route: { name: "admin-reports-financial" },
 					perm: "reports.financial"
 				},
 			],
@@ -51,19 +51,19 @@ export default defineEventHandler((event) => {
 				{
 					label: "مسکونی داخلی",
 					icon: "teenyicons:home-outline",
-					route: { name: "properties-inside" },
+					route: { name: "admin-properties-inside" },
 					perm: "properties.inside"
 				},
 				{
 					label: "شهرک خاتم‌الانبیاء",
 					icon: "teenyicons:home-outline",
-					route: { name: "properties-khatam" },
+					route: { name: "admin-properties-khatam" },
 					perm: "properties.khatam"
 				},
 				{
 					label: "اماکن انتفاعی",
 					icon: "teenyicons:shop-outline",
-					route: { name: "properties-profitable" },
+					route: { name: "admin-properties-profitable" },
 					perm: "properties.profitable"
 				},
 			],
@@ -76,33 +76,45 @@ export default defineEventHandler((event) => {
 				{
 					label: "مسکونی داخلی",
 					icon: "teenyicons:text-document-outline",
-					route: { name: "agreements-inside" },
+					route: { name: "admin-agreements-inside" },
 					perm: 'agreements.inside'
 				},
 				{
 					label: "شهرک خاتم‌الانبیاء",
 					icon: "teenyicons:text-document-outline",
-					route: { name: "agreements-khatam" },
+					route: { name: "admin-agreements-khatam" },
 					perm: 'agreements.khatam'
 				},
 				{
 					label: "اماکن انتفاعی",
 					icon: "teenyicons:text-document-outline",
-					route: { name: "agreements-profitable" },
+					route: { name: "admin-agreements-profitable" },
 					perm: 'agreements.profitable'
 				},
 			],
 			perm: 'agreements'
 		},
 	];
-	const userMenu = []
-	for (const item of allMenu) {
-		const allowed = allowedMenu(item, event.context.user.can)
-		if (allowed) {
-			userMenu.push(allowed)
+
+	if (event.context.user.role.toLowerCase() === 'user') {
+		return [
+			{
+				label: "پیشخوان",
+				icon: "teenyicons:imac-outline",
+				route: { name: "index" },
+				perm: "userdashboard",
+			},
+		]
+	} else {
+		let userMenu = []
+		for (const item of allMenu) {
+			const allowed = allowedMenu(item, event.context.user.can)
+			if (allowed) {
+				userMenu.push(allowed)
+			}
 		}
+		return userMenu
 	}
-	return userMenu
 });
 
 const allowedMenu = ({items, ...item}, can:(perm:string)=>boolean) => {

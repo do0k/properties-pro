@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { Ref } from 'vue'
 import { getCurrentRouteIndex, err } from '~/utils/helpers'
-import type { MenuItem } from '~/types'
+import type { MenuItem } from '~'
 
 const props = defineProps<{
   modelValue: boolean
@@ -16,6 +16,7 @@ const { data, error, pending } = await useLazyFetch('/api/app/menu', { server: f
 if (error.value) {
   err(error)
 }
+
 const defaultActive = computed(() => getCurrentRouteIndex(data.value as MenuItem[], useRouter().currentRoute.value.name || ''))
 </script>
 
@@ -25,9 +26,9 @@ el-aside(width="auto")
     router
     unique-opened
     :collapse="collapse"
-    :default-active="defaultActive"
     background-color="#3730a3"
     active-text-color="#fef9c3"
+    :default-active="defaultActive"
     text-color="#fff"
   )
     .el-menu-item.app-title

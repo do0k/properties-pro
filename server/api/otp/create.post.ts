@@ -64,7 +64,7 @@ export default defineEventHandler(async (event) => {
 		if (!result)
 			throw createError({ message: "خطا در ارسال کدتایید", statusCode: 500 });
 		return {
-			message: "کدتایید با موفقیت ارسال شد",
+			message: "کدتایید با موفقیت ارسال شد" + otp,
 			expire: userUpdate.expire,
 		};
 	}
