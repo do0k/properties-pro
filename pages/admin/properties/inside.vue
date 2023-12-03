@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Property } from '@prisma/client'
-import { Refresh, Save } from '~/components/icons'
+import { Refresh, Save, Add } from '~/components/icons'
 import type { Filters, Loadings } from '~'
 import { defineAppForm } from '~/composables/defineAppForm'
 
@@ -83,10 +83,8 @@ error-observer(:error="error" :refresh="refresh" :pending="pending")
 				template(#template)
 					.flex.gap-4
 						el-skeleton-item(style="height: 32px; width: 210px; margin-bottom:-8px")
-				//.flex.gap-4
-				//	el-button(type="primary" @click="() => console.log('clicked')") افزودن کاربر
-				//		template(#icon)
-				//			icon(name="teenyicons:layers-outline")
+				.flex.gap-4
+					el-button(type="success" :icon="Add" @click="() => console.log('clicked')") افزودن کاربر
 		el-skeleton(:loading="pending" animated)
 			template(#template)
 				.flex.gap-4.my-2.items-center.h-6(v-for="i in [1,2,3,4,5]" :key="i")

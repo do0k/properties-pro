@@ -50,7 +50,8 @@ export default defineEventHandler(async (event) => {
 			},
 			orderBy: { ...orderedBy },
 			include: {
-        role: true
+        user: true,
+				agreements: true
 			},
 			skip: (parseInt(page) - 1) * parseInt(size),
 			take: parseInt(size),
