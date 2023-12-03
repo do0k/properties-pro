@@ -6,7 +6,7 @@ import type { Role, User } from '@prisma/client'
 export default defineEventHandler(async (event) => {
   const user = <{name: User}><unknown>(await getServerSession(event))?.user
   if (user) {
-    const role = (await db.role.findUnique({ where: { userId: user.name.id } })) as Role & {perms: Permission[]}
+    const role = (await db.role.findUnique({ where: { slug: user.name.role.slug } })) as Role & {perms: Permission[]}
     await db.$disconnect()
     event.context.user = {
       ...user?.name,

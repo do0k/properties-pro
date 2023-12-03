@@ -215,26 +215,26 @@ error-observer(:error="error" :refresh="refresh" :pending="pending")
 							:page-sizes="[10, 20, 30, 50, 100]"
 							layout="total, prev, pager, next, sizes"
 							:total="data?.total || 0")
-	el-drawer(v-model="dialog" title="مجوزها" append-to-body :close-on-click-modal="false")
+	el-drawer(v-model="dialog" title="مجوزها" append-to-body :size="450" :close-on-click-modal="false")
 		el-table(
 			ref="table",
-			height="450"
+			height="300"
 			:data="perms",
-			table-layout="auto",
+			table-layout="fixed",
 			stripe,
 		).mb-5
-			el-table-column(type="index" label="#")
-			el-table-column(:resizable="false" width="auto" label="نام مجوز" prop="name" )
+			el-table-column(type="index" width="20" label="#")
+			el-table-column(width="80" label="نام مجوز" prop="name" )
 				template(#header="{column, $index}")
 					app-table-header(:label="column.label")
 				template(#default="{ row }")
-					.w-full {{ row.name }}
-			el-table-column(:resizable="false" width="auto" label="نامک مجوز" prop="slug" )
+					.w-full.truncate {{ row.name }}
+			el-table-column( width="120" label=" نامک مجوز" prop="slug" )
 				template(#header="{column, $index}")
 					app-table-header(:label="column.label")
 				template(#default="{ row }")
-					el-tag.w-full {{ row.slug }}
-			el-table-column(:resizable="false" width="auto" label="نامک مجوز" prop="slug" )
+					el-tag.w-full.truncate {{ row.slug }}
+			el-table-column(align="right")
 				template(#default="{ row }")
 					el-tooltip(effect="dark" placement="right" content="حذف مجوز")
 						el-button.ml-2(

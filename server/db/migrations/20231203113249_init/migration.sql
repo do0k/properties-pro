@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "UserRole" AS ENUM ('ADMIN', 'USER');
+CREATE TYPE "PropertyType" AS ENUM ('INSIDE', 'KHATAM', 'PROFITABLE');
 
 -- CreateEnum
 CREATE TYPE "PaymentStatus" AS ENUM ('DONE', 'PENDING', 'RETURNED', 'CANCELED', 'CREATED', 'PAID');
@@ -7,6 +7,7 @@ CREATE TYPE "PaymentStatus" AS ENUM ('DONE', 'PENDING', 'RETURNED', 'CANCELED', 
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
+    "roleId" INTEGER NOT NULL,
     "code" TEXT NOT NULL,
     "otp" TEXT,
     "expire" TIMESTAMPTZ,
@@ -22,7 +23,6 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Role" (
     "id" SERIAL NOT NULL,
-    "userId" INTEGER NOT NULL,
     "name" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
     "perms" JSONB NOT NULL,
@@ -45,6 +45,7 @@ CREATE TABLE "Property" (
     "collateral" INTEGER NOT NULL,
     "details" JSONB,
     "address" TEXT NOT NULL,
+    "type" "PropertyType" NOT NULL,
     "createdAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMPTZ NOT NULL,
     "daletedAt" TIMESTAMPTZ NOT NULL,
@@ -107,19 +108,19 @@ CREATE TABLE "PaymentPort" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "User_roleId_key" ON "User"("roleId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "User_code_key" ON "User"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_mobile_key" ON "User"("mobile");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Role_userId_key" ON "Role"("userId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Role_slug_key" ON "Role"("slug");
 
 -- AddForeignKey
-ALTER TABLE "Role" ADD CONSTRAINT "Role_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "User" ADD CONSTRAINT "User_roleId_fkey" FOREIGN KEY ("roleId") REFERENCES "Role"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Property" ADD CONSTRAINT "Property_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

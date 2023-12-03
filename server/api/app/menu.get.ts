@@ -95,7 +95,6 @@ export default defineEventHandler((event) => {
 			perm: 'agreements'
 		},
 	];
-
 	if (event.context.user.role.toLowerCase() === 'user') {
 		return [
 			{
@@ -104,6 +103,27 @@ export default defineEventHandler((event) => {
 				route: { name: "index" },
 				perm: "userdashboard",
 			},
+			{
+				label: "سررسیدها",
+				icon: "teenyicons:cash-outline",
+				route: {name: 'profile.invoices'}
+			},
+			,
+			{
+				label: "قراردادهای من",
+				icon: "teenyicons:cash-outline",
+				route: {name: 'profile.agreements'}
+			},
+			{
+				label: "پرداخت های من",
+				icon: "teenyicons:cash-outline",
+				route: {name: 'profile.payments'}
+			},
+			{
+				label: "تراکنش های من",
+				icon: "teenyicons:cash-outline",
+				route: {name: 'profile.transactions'}
+			}
 		]
 	} else {
 		let userMenu = []

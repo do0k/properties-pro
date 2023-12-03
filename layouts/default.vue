@@ -33,5 +33,5 @@ el-config-provider(:locale="locale")
           slot
       el-footer(height="26px").bg-zinc-200.text-zinc-600.flex.items-center.justify-between
         .my-1.text-sm پایگاه پدافند هوایی کیش
-        .my-1.text-sm طراحی و راه اندازی توسط گروه فناوری اطلاعات پاساک
+        .my-1.text-sm طراحی و توسعه توسط گروه فناوری اطلاعات پاساک
 </template>

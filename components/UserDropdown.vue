@@ -33,13 +33,14 @@ el-dropdown(trigger="click")
     template(#icon)
       icon(name="material-symbols:account-circle-full" size="15px")
   template(#dropdown)
-    .flex.items-center.p-2.w-40
+    .flex.items-center.p-2.w-50
       el-avatar(:icon="UserFilled" shape="square" )
       el-divider(direction="vertical")
       .font-bold(v-if="user")
         .text-indigo-600 {{ user?.name }}
+        .text-indigo-300 {{ user?.role.name }}
         //.text-indigo-300 {{ data.value.user?.role.name }}
-    el-divider._my-2
+    el-divider(class="!my-1")
     .flex.flex-col.gap-2.p-2.stacked
       el-button(:icon="Settings" plain round) تنظیمات حساب
       el-button(type="danger" :icon="Power" plain round, @click="logout") خروج از حساب

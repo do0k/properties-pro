@@ -1,7 +1,7 @@
 // import type { AuthConfig } from "@auth/core/types";
 import { NuxtAuthHandler } from "#auth";
 // import Credentials from "@auth/core/providers/credentials";
-import CredentialsProvider from 'next-auth/providers/credentials'
+import CredentialsProvider from "next-auth/providers/credentials";
 import { db } from "~/server/db";
 
 export default NuxtAuthHandler({
@@ -14,7 +14,8 @@ export default NuxtAuthHandler({
 			authorize: async (credentials: { otp: string; code: string }) => {
 				try {
 					const user = await db.user.findUnique({
-						where: { code: String(credentials.code) }
+						where: { code: String(credentials.code) },
+						include: { role: true },
 					});
 					if (!user)
 						throw createError({
@@ -31,7 +32,7 @@ export default NuxtAuthHandler({
 						if (auth) {
 							return {
 								id: user.id,
-								name: user
+								name: user,
 							};
 						}
 					}
@@ -50,9 +51,13 @@ export default NuxtAuthHandler({
 	},
 	callbacks: {
 		redirect: ({ url, baseUrl }) => {
-		  let _URL = baseUrl
-		  if (url.startsWith('/')) { _URL = `${baseUrl}${url}` } else if (new URL(url).origin === baseUrl) { _URL = url }
-		  return _URL
+			let _URL = baseUrl;
+			if (url.startsWith("/")) {
+				_URL = `${baseUrl}${url}`;
+			} else if (new URL(url).origin === baseUrl) {
+				_URL = url;
+			}
+			return _URL;
 		},
 		jwt: ({ token, user, account }) => {
 			if (user) {
@@ -75,4 +80,4 @@ export default NuxtAuthHandler({
 		signIn: "/auth/login",
 		error: "/auth/login",
 	},
-})
+});

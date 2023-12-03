@@ -12,6 +12,7 @@ datasource db {
 
 model User {
   id         Int         @id @default(autoincrement())
+  roleId     Int         @unique
   code       String      @unique
   otp        String?
   expire     DateTime?   @db.Timestamptz()
@@ -22,20 +23,19 @@ model User {
   deletedAt  DateTime?   @db.Timestamptz()
   properties Property[]
   agreements Agreement[]
-  role       Role?
+  role       Role        @relation(fields: [roleId], references: [id])
   payments   Payment[]
   orders     Order[]
 }
 
 model Role {
   id        Int      @id @default(autoincrement())
-  userId    Int      @unique
   name      String
   slug      String   @unique
   perms     Json
   createdAt DateTime @default(now()) @db.Timestamptz()
   updatedAt DateTime @updatedAt @db.Timestamptz()
-  user      User     @relation(fields: [userId], references: [id])
+  users     User[]
 }
 
 model Property {
@@ -51,6 +51,7 @@ model Property {
   collateral  Int
   details     Json?
   address     String
+  type PropertyType
   createdAt   DateTime    @default(now()) @db.Timestamptz()
   updatedAt   DateTime    @updatedAt @db.Timestamptz()
   daletedAt   DateTime    @db.Timestamptz()
@@ -111,9 +112,10 @@ model PaymentPort {
   payments  Payment[]
 }
 
-enum UserRole {
-  ADMIN
-  USER
+enum PropertyType {
+  INSIDE
+  KHATAM
+  PROFITABLE
 }
 
 enum PaymentStatus {
