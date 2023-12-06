@@ -21,7 +21,6 @@ model User {
   createdAt  DateTime    @default(now()) @db.Timestamptz()
   updatedAt  DateTime    @updatedAt @db.Timestamptz()
   deletedAt  DateTime?   @db.Timestamptz()
-  properties Property[]
   agreements Agreement[]
   role       Role        @relation(fields: [roleId], references: [id])
   payments   Payment[]
@@ -39,22 +38,23 @@ model Role {
 }
 
 model Property {
-  id          Int         @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
   name        String
-  description String
+  description String?
   usage       String
-  user        User        @relation(fields: [userId], references: [id])
-  userId      Int
   rent        Int
   meterage    Int
   deposit     Int
   collateral  Int
+  charge      Int
+  hasCounter  Boolean
+  bills       Int?
   details     Json?
   address     String
-  type PropertyType
-  createdAt   DateTime    @default(now()) @db.Timestamptz()
-  updatedAt   DateTime    @updatedAt @db.Timestamptz()
-  daletedAt   DateTime    @db.Timestamptz()
+  type        PropertyType
+  createdAt   DateTime     @default(now()) @db.Timestamptz()
+  updatedAt   DateTime     @updatedAt @db.Timestamptz()
+  daletedAt   DateTime     @db.Timestamptz()
   agreements  Agreement[]
 }
 

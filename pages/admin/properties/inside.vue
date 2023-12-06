@@ -1,32 +1,33 @@
 <script lang="ts" setup>
-import type { Property } from '@prisma/client'
-import { Refresh, Save, Add } from '~/components/icons'
-import type { Filters, Loadings } from '~'
-import { defineAppForm } from '~/composables/defineAppForm'
+import type { Property } from "@prisma/client";
+import { PropertyType } from "@prisma/client";
+import { Refresh, Save, Add } from "~/components/icons";
+import type { Filters, Loadings } from "~";
+import { defineAppForm } from "~/composables/defineAppForm";
 
-const title = ref('کاربران/مدیریت نقش‌ها')
+const title = ref("مدیریت اماکن/مسکونی داخلی");
 useHead({
 	title,
-})
+});
 
-const size: Ref<number> = ref(20)
-const page: Ref<number> = ref(1)
-const order: Ref<string | undefined> = ref()
-const lastIndex = ref<number>()
-  const orderBy: Ref<string> = ref('')
-const filters: Ref<Filters> = ref({})
-const loadings = reactive<Loadings>({})
+const size: Ref<number> = ref(20);
+const page: Ref<number> = ref(1);
+const order: Ref<string | undefined> = ref();
+const lastIndex = ref<number>();
+const orderBy: Ref<string> = ref("");
+const filters: Ref<Filters> = ref({});
+const loadings = reactive<Loadings>({});
 const hasFilter = computed(
 	() => Object.keys(filters.value).filter((k) => filters.value[k]).length > 0
-)
+);
 const clearFilters = () => {
-	filters.value = {}
-}
+	filters.value = {};
+};
 
 const { data, error, refresh, pending } = (await useLazyFetch<{
 	total: number;
 	items: Property[];
-}>('/api/properties/inside', {
+}>("/api/properties/inside", {
 	server: false,
 	query: {
 		page,
@@ -40,26 +41,151 @@ const { data, error, refresh, pending } = (await useLazyFetch<{
 	error: any;
 	refresh: any;
 	pending: any;
-}
+};
 
-const orders = ref([])
+const orders = ref([]);
 
 const changeSort = (prop, index) => {
 	if (lastIndex.value !== index) {
-		orders.value = []
+		orders.value = [];
 	}
-	if (orders.value[index] === 'asc') {
-		order.value = 'desc'
-		orders.value[index] = 'desc'
+	if (orders.value[index] === "asc") {
+		order.value = "desc";
+		orders.value[index] = "desc";
 	} else {
-		order.value = 'asc'
-		orders.value[index] = 'asc'
+		order.value = "asc";
+		orders.value[index] = "asc";
 	}
-	orderBy.value = prop
-	lastIndex.value = index
+	orderBy.value = prop;
+	lastIndex.value = index;
+};
+const dialog: Ref<boolean> = ref(false);
+const btnLoading: Ref<boolean> = ref(false);
+const disabled = computed(()=> _data.hasCounter || false)
+const [ fields, _data, form ] = defineAppForm({
+	name: {
+		label: 'عنوان',
+		icon: 'teenyicons:pen-outline',
+		rule: [ {
+			required: true,
+			message: 'لطفا عنوان مکان را وارد کنید'
+		} ]
+	},
+	usage: {
+		label: 'کاربری',
+		icon: 'teenyicons:hashtag-outline',
+		rule: [ {
+			required: true,
+			message: 'لطفا کاربری مکان را وارد کنید'
+		} ]
+	},
+	meterage: {
+		label: 'متراژ',
+		icon: 'teenyicons:hashtag-outline',
+		rule: [ {
+			required: true,
+			message: 'لطفا متراژ مکان را وارد کنید'
+		} ]
+	},
+	rent: {
+		label: 'اجاره بها',
+		icon: 'teenyicons:hashtag-outline',
+		type: 'currency',
+		rule: [ {
+			required: true,
+			message: 'لطفا مبلغ اجاره ماهیانه مکان را وارد کنید'
+		} ]
+	},
+	deposit: {
+		label: 'پیش پرداخت',
+		icon: 'teenyicons:hashtag-outline',
+		type: 'currency',
+		rule: [ {
+			required: true,
+			message: 'لطفا مبلغ پیش پرداخت مکان را وارد کنید'
+		} ]
+	},
+	collateral: {
+		label: 'ضمانت',
+		icon: 'teenyicons:hashtag-outline',
+		type: 'currency',
+		rule: [ {
+			required: true,
+			message: 'لطفا مبلغ ضمانت مکان را وارد کنید'
+		} ]
+	},
+	charge: {
+		label: 'راهبری',
+		icon: 'teenyicons:hashtag-outline',
+		type: 'currency',
+		rule: [ {
+			required: true,
+			message: 'لطفا مبلغ ضمانت مکان را وارد کنید'
+		} ]
+	},
+	hasCounter: {
+		label: 'دارای کنتور',
+		type: 'switch',
+		rule: [{
+			required: true,
+			message: 'لطفا وضعیت کنتور را مشخص کنید'
+		}]
+	},
+	bills: {
+		label: 'آب و برق',
+		icon: 'teenyicons:hashtag-outline',
+		type: 'currency',
+		props: {
+			disabled,
+		},
+		rule: [ {
+			required: !disabled,
+			message: 'لطفا مبلغ ضمانت مکان را وارد کنید',
+		} ]
+	},
+	address: {
+		label: 'آدرس',
+		icon: 'teenyicons:hashtag-outline',
+		type: 'textarea',
+		rule: [ {
+			required: true,
+			message: 'لطفا آدرس مکان را وارد کنید'
+		} ]
+	},
+	description: {
+		label: 'توضیحات',
+		icon: 'teenyicons:hashtag-outline',
+		type: 'textarea',
+	},
+})
+
+const openFormDialog = () => {
+	reset()
+	dialog.value = true
 }
-const dialog: Ref<boolean> = ref(false)
-const btnLoading: Ref<boolean> = ref(false)
+
+const addProperty = async () => {
+	btnLoading.value = true
+	const {data, error} = await useSend('/api/properties/inside', {
+		method: 'POST',
+		body: {
+			..._data,
+			type: PropertyType.INSIDE
+		}
+	})
+	btnLoading.value = false
+	err(error)
+	if(msg(data)) {
+		await refresh()		
+		dialog.value = false
+	}
+}
+
+const reset = () => {
+	if (form.value) {
+		form.value.resetFields()
+	}
+}
 </script>
 
 <template lang="pug">
@@ -84,7 +210,7 @@ error-observer(:error="error" :refresh="refresh" :pending="pending")
 					.flex.gap-4
 						el-skeleton-item(style="height: 32px; width: 210px; margin-bottom:-8px")
 				.flex.gap-4
-					el-button(type="success" :icon="Add" @click="() => console.log('clicked')") افزودن کاربر
+					el-button(type="success" :icon="Add" @click="openFormDialog") افزودن مکان
 		el-skeleton(:loading="pending" animated)
 			template(#template)
 				.flex.gap-4.my-2.items-center.h-6(v-for="i in [1,2,3,4,5]" :key="i")
@@ -166,39 +292,8 @@ error-observer(:error="error" :refresh="refresh" :pending="pending")
 							:page-sizes="[10, 20, 30, 50, 100]"
 							layout="total, prev, pager, next, sizes"
 							:total="data?.total || 0")
-	el-drawer(v-model="dialog" title="مجوزها" append-to-body :size="450" :close-on-click-modal="false")
-		el-table(
-			ref="table",
-			height="300"
-			:data="perms",
-			table-layout="fixed",
-			stripe,
-		).mb-5
-			el-table-column(type="index" width="20" label="#")
-			el-table-column(width="80" label="نام مجوز" prop="name" )
-				template(#header="{column, $index}")
-					app-table-header(:label="column.label")
-				template(#default="{ row }")
-					.w-full.truncate {{ row.name }}
-			el-table-column( width="120" label=" نامک مجوز" prop="slug" )
-				template(#header="{column, $index}")
-					app-table-header(:label="column.label")
-				template(#default="{ row }")
-					el-tag.w-full.truncate {{ row.slug }}
-			el-table-column(align="right")
-				template(#default="{ row }")
-					el-tooltip(effect="dark" placement="right" content="حذف مجوز")
-						el-button.ml-2(
-							type="danger"
-							text
-							class="!px-2",
-							size="small"
-						)
-							template(#icon)
-								icon(name="teenyicons:shield-outline")
-		el-divider(content-position="left" )
-			.text-gray-500.font-light افزودن مجوز
+	el-drawer(v-model="dialog" title="افزودن واحد مسکونی داخلی جدید" append-to-body :size="400" :close-on-click-modal="false")
 		app-form(v-model="_data" :fields="fields" @ref="_form => form = _form")
 		template(#footer)
-			el-button(type="success" :icon="Save" :loading="btnLoading") افزودن مجوز
+			el-button(type="success" :icon="Save" :loading="btnLoading" @click="addProperty") ثبت
 </template>
