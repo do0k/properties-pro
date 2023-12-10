@@ -87,42 +87,6 @@ const [ fields, _data, form ] = defineAppForm({
 			message: 'لطفا متراژ مکان را وارد کنید'
 		} ]
 	},
-	rent: {
-		label: 'اجاره بها',
-		icon: 'teenyicons:hashtag-outline',
-		type: 'currency',
-		rule: [ {
-			required: true,
-			message: 'لطفا مبلغ اجاره ماهیانه مکان را وارد کنید'
-		} ]
-	},
-	deposit: {
-		label: 'پیش پرداخت',
-		icon: 'teenyicons:hashtag-outline',
-		type: 'currency',
-		rule: [ {
-			required: true,
-			message: 'لطفا مبلغ پیش پرداخت مکان را وارد کنید'
-		} ]
-	},
-	collateral: {
-		label: 'ضمانت',
-		icon: 'teenyicons:hashtag-outline',
-		type: 'currency',
-		rule: [ {
-			required: true,
-			message: 'لطفا مبلغ ضمانت مکان را وارد کنید'
-		} ]
-	},
-	charge: {
-		label: 'راهبری',
-		icon: 'teenyicons:hashtag-outline',
-		type: 'currency',
-		rule: [ {
-			required: true,
-			message: 'لطفا مبلغ ضمانت مکان را وارد کنید'
-		} ]
-	},
 	hasCounter: {
 		label: 'دارای کنتور',
 		type: 'switch',
@@ -130,18 +94,6 @@ const [ fields, _data, form ] = defineAppForm({
 			required: true,
 			message: 'لطفا وضعیت کنتور را مشخص کنید'
 		}]
-	},
-	bills: {
-		label: 'آب و برق',
-		icon: 'teenyicons:hashtag-outline',
-		type: 'currency',
-		props: {
-			disabled,
-		},
-		rule: [ {
-			required: !disabled,
-			message: 'لطفا مبلغ ضمانت مکان را وارد کنید',
-		} ]
 	},
 	address: {
 		label: 'آدرس',
@@ -292,7 +244,7 @@ error-observer(:error="error" :refresh="refresh" :pending="pending")
 							:page-sizes="[10, 20, 30, 50, 100]"
 							layout="total, prev, pager, next, sizes"
 							:total="data?.total || 0")
-	el-drawer(v-model="dialog" title="افزودن واحد مسکونی داخلی جدید" append-to-body :size="400" :close-on-click-modal="false")
+	el-drawer(v-model="dialog" title="افزودن واحد مسکونی داخلی جدید" append-to-body :size="450" :close-on-click-modal="false")
 		app-form(v-model="_data" :fields="fields" @ref="_form => form = _form")
 		template(#footer)
 			el-button(type="success" :icon="Save" :loading="btnLoading" @click="addProperty") ثبت

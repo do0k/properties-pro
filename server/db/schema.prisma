@@ -44,11 +44,7 @@ model Property {
   usage       String
   rent        Int
   meterage    Int
-  deposit     Int
-  collateral  Int
-  charge      Int
   hasCounter  Boolean
-  bills       Int?
   details     Json?
   address     String
   type        PropertyType
@@ -59,6 +55,11 @@ model Property {
 }
 
 model Agreement {
+  rent       Int
+  deposit    Int
+  collateral Int
+  charge     Int
+  bills      Int?
   user       User     @relation(fields: [userId], references: [id])
   createdAt  DateTime @default(now()) @db.Timestamptz()
   updatedAt  DateTime @updatedAt @db.Timestamptz()
