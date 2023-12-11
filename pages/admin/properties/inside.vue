@@ -90,6 +90,7 @@ const [ fields, _data, form ] = defineAppForm({
 	hasCounter: {
 		label: 'دارای کنتور',
 		type: 'switch',
+		value: false,
 		rule: [{
 			required: true,
 			message: 'لطفا وضعیت کنتور را مشخص کنید'
@@ -118,6 +119,7 @@ const openFormDialog = () => {
 
 const addProperty = async () => {
 	btnLoading.value = true
+	console.log(_data)
 	const {data, error} = await useSend('/api/properties/inside', {
 		method: 'POST',
 		body: {

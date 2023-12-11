@@ -42,7 +42,6 @@ model Property {
   name        String
   description String?
   usage       String
-  rent        Int
   meterage    Int
   hasCounter  Boolean
   details     Json?
