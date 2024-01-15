@@ -71,14 +71,6 @@ const [ fields, _data, form ] = defineAppForm({
 			message: 'لطفا عنوان مکان را وارد کنید'
 		} ]
 	},
-	usage: {
-		label: 'کاربری',
-		icon: 'teenyicons:hashtag-outline',
-		rule: [ {
-			required: true,
-			message: 'لطفا کاربری مکان را وارد کنید'
-		} ]
-	},
 	meterage: {
 		label: 'متراژ',
 		icon: 'teenyicons:hashtag-outline',
@@ -87,15 +79,15 @@ const [ fields, _data, form ] = defineAppForm({
 			message: 'لطفا متراژ مکان را وارد کنید'
 		} ]
 	},
-	hasCounter: {
-		label: 'دارای کنتور',
-		type: 'switch',
-		value: false,
-		rule: [{
-			required: true,
-			message: 'لطفا وضعیت کنتور را مشخص کنید'
-		}]
-	},
+	// hasCounter: {
+	// 	label: 'دارای کنتور',
+	// 	type: 'switch',
+	// 	value: false,
+	// 	rule: [{
+	// 		required: true,
+	// 		message: 'لطفا وضعیت کنتور را مشخص کنید'
+	// 	}]
+	// },
 	address: {
 		label: 'آدرس',
 		icon: 'teenyicons:hashtag-outline',
@@ -124,7 +116,9 @@ const addProperty = async () => {
 		method: 'POST',
 		body: {
 			..._data,
-			type: PropertyType.INSIDE
+			type: PropertyType.INSIDE,
+			usage: 'مسکونی',
+			hasCounter: false
 		}
 	})
 	btnLoading.value = false
@@ -133,6 +127,10 @@ const addProperty = async () => {
 		await refresh()		
 		dialog.value = false
 	}
+}
+
+const openHistoryDialog = async (row: Property) => {
+	loadings[row.id] = true
 }
 
 const reset = () => {
@@ -184,7 +182,7 @@ error-observer(:error="error" :refresh="refresh" :pending="pending")
 			)
 				template(#empty)
 					el-empty
-				el-table-column(type="selection" width="30" )
+				//el-table-column(type="selection" width="30" )
 				el-table-column(type="index" label="#")
 				el-table-column(:resizable="false" width="90" label="کد" prop="id" )
 					template(#header="{column, $index}")
@@ -193,17 +191,22 @@ error-observer(:error="error" :refresh="refresh" :pending="pending")
 							sortable-table-header(:order="orders[$index]" @click="changeSort(column.property, $index)")
 					template(#default="{ row }")
 						el-tag.w-full {{ row.id }}
-				el-table-column(width="100" label="نقش")
+				el-table-column(width="auto" label="عنوان")
 					template(#header="{column}")
 						app-table-header(:label="column.label")
 							filterable-table-header(v-model="filters.name")
 					template(#default="{ row }") {{ row.name }}
-				el-table-column(width="100" label="نامک")
+				el-table-column(width="100" label="متراژ" prop="meterage")
+					template(#header="{column, $index}")
+						app-table-header(:label="column.label")
+							filterable-table-header(v-model="filters.meterage")
+							sortable-table-header(:order="orders[$index]" @click="changeSort(column.property, $index)")
+					template(#default="{ row }")
+						el-tag.w-full  {{ row.meterage }}
+				el-table-column(width="auto" label="آدرس")
 					template(#header="{column}")
 						app-table-header(:label="column.label")
-							filterable-table-header(v-model="filters.slug")
-					template(#default="{ row }")
-						el-tag.w-full  {{ row.slug }}
+					template(#default="{ row }") {{ row.name }}
 				el-table-column(fixed="right" align="right")
 					template(#header)
 						.flex.w-full.flex-row-reverse.px-3
@@ -231,7 +234,7 @@ error-observer(:error="error" :refresh="refresh" :pending="pending")
 								class="!px-2",
 								size="small"
 								:loading="loadings[row.id]"
-								@click="openFormDialog(row).then()"
+								@click="openManageAgreements(row)"
 							)
 								template(#icon)
 									icon(name="teenyicons:shield-tick-outline")

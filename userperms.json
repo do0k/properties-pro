@@ -1,7 +1,7 @@
 [
 	{
 		"name": "داشبورد",
-		"slug": "dashboard"
+		"slug": "userdashboard"
 	},
   {
 		"name": "کاربران",
@@ -14,49 +14,5 @@
   {
 		"name": "مدیریت نقش ها",
 		"slug": "users.roles"
-	},
-  {
-		"name": "گزارشات",
-		"slug": "reports"
-	},
-  {
-		"name": "وضعیت اماکن",
-		"slug": "reports.properties"
-	},
-  {
-		"name": "مالی",
-		"slug": "reports.financial"
-	},
-  {
-		"name": "مدیریت اماکن",
-		"slug": "properties"
-	},
-  {
-		"name": "مسکونی داخلی",
-		"slug": "properties.inside"
-	},
-  {
-		"name": "شهرک خاتم‌الانبیاء",
-		"slug": "properties.khatam"
-	},
-  {
-    "name": "عواید انتفاعی",
-		"slug": "properties.profitable"
-  },
-  {
-    "name": "مدیریت قراردادها",
-		"slug": "agreements"
-  },
-  {
-    "name": "مسکونی داخلی",
-		"slug": "agreements.inside"
-  },
-  {
-    "name": "شهرک خاتم‌الانبیاء",
-		"slug": "agreements.khatam"
-  },
-  {
-    "name": "عواید انتفاعی",
-		"slug": "agreements.profitable"
-  }
+	}
 ]

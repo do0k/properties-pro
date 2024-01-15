@@ -10,13 +10,18 @@ export default defineEventHandler(async (event) => {
   const data = await useValidate(event, schema.object({
 		name: schema.coerce.string().trim(),
 		usage: schema.coerce.string().trim(),
+	  type: schema.coerce.string().trim(),
 		meterage: schema.coerce.string().trim(),
 		hasCounter: schema.coerce.boolean(),
 		address: schema.coerce.string().trim(),
 		description: schema.coerce.string().trim(),
 	}))
+
 	const property = await db.property.create({
-		data
+		data: {
+			...data,
+			meterage: parseInt(data.meterage)
+		}
 	})
 
 	if(!property) throw createError({message: 'خطایی رخ داده است لطفا دوباره تلاش کنید', statusCode: 500})

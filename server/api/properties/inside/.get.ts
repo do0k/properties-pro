@@ -25,8 +25,8 @@ export default defineEventHandler(async (event) => {
 		where.name = _filters.name;
 	}
 
-	if (_filters.usage) {
-		where.usage = _filters.usage;
+	if (_filters.meterage) {
+		where.meterage = parseInt(_filters.meterage);
 	}
 	
 	

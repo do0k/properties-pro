@@ -1,7 +1,6 @@
 {
   "name": "nuxt-app",
   "private": true,
-  "type": "module",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -20,6 +19,7 @@
     "@unocss/nuxt": "^0.57.2",
     "@unocss/reset": "^0.57.2",
     "@unocss/transformer-directives": "^0.57.2",
+    "@volar/vue-language-plugin-pug": "^1.6.5",
     "@vueuse/core": "^10.5.0",
     "@vueuse/nuxt": "^10.5.0",
     "bcrypt": "^5.1.1",
@@ -32,12 +32,14 @@
     "pug": "^3.0.2",
     "rtlcss": "^4.1.1",
     "sass": "^1.69.5",
+    "ts-node": "^10.9.2",
     "vite-plugin-pug": "^0.3.2",
     "vue": "^3.3.7",
     "vue-router": "^4.2.5",
     "zod": "^3.22.4"
   },
   "prisma": {
-    "schema": "./server/db/schema.prisma"
+    "schema": "./server/db/schema.prisma",
+    "seed": "tsx ./server/db/seeds/index.ts"
   }
 }

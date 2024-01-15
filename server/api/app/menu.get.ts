@@ -101,28 +101,31 @@ export default defineEventHandler((event) => {
 				label: "پیشخوان",
 				icon: "teenyicons:imac-outline",
 				route: { name: "index" },
-				perm: "userdashboard",
+				perm: "user-dashboard",
 			},
 			{
 				label: "سررسیدها",
-				icon: "teenyicons:cash-outline",
-				route: {name: 'profile.invoices'}
+				icon: "teenyicons:dollar-outline",
+				route: {name: 'profile.invoices'},
+				perm: 'user-invoices'
 			},
-			,
 			{
 				label: "قراردادهای من",
-				icon: "teenyicons:cash-outline",
-				route: {name: 'profile.agreements'}
+				icon: "teenyicons:dollar-outline",
+				route: {name: 'profile.agreements'},
+				perm: 'user-agreements'
 			},
 			{
 				label: "پرداخت های من",
-				icon: "teenyicons:cash-outline",
-				route: {name: 'profile.payments'}
+				icon: "teenyicons:dollar-outline",
+				route: {name: 'profile.payments'},
+				perm: 'user-payments'
 			},
 			{
 				label: "تراکنش های من",
-				icon: "teenyicons:cash-outline",
-				route: {name: 'profile.transactions'}
+				icon: "teenyicons:dollar-outline",
+				route: {name: 'profile.transactions'},
+				perm: 'user-transactions'
 			}
 		]
 	} else {

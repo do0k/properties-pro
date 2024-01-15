@@ -12,7 +12,7 @@ datasource db {
 
 model User {
   id         Int         @id @default(autoincrement())
-  roleId     Int         @unique
+  roleId     Int
   code       String      @unique
   otp        String?
   expire     DateTime?   @db.Timestamptz()
@@ -49,7 +49,7 @@ model Property {
   type        PropertyType
   createdAt   DateTime     @default(now()) @db.Timestamptz()
   updatedAt   DateTime     @updatedAt @db.Timestamptz()
-  daletedAt   DateTime     @db.Timestamptz()
+  daletedAt   DateTime?    @db.Timestamptz()
   agreements  Agreement[]
 }
 
@@ -59,16 +59,16 @@ model Agreement {
   collateral Int
   charge     Int
   bills      Int?
-  user       User     @relation(fields: [userId], references: [id])
-  createdAt  DateTime @default(now()) @db.Timestamptz()
-  updatedAt  DateTime @updatedAt @db.Timestamptz()
-  daletedAt  DateTime @db.Timestamptz()
+  user       User      @relation(fields: [userId], references: [id])
+  createdAt  DateTime  @default(now()) @db.Timestamptz()
+  updatedAt  DateTime  @updatedAt @db.Timestamptz()
+  daletedAt  DateTime? @db.Timestamptz()
   userId     Int
-  property   Property @relation(fields: [propertyId], references: [id])
+  property   Property  @relation(fields: [propertyId], references: [id])
   propertyId Int
   details    Json?
-  startAt    DateTime @db.Timestamptz()
-  dueAt      DateTime @db.Timestamptz()
+  startAt    DateTime  @db.Timestamptz()
+  dueAt      DateTime  @db.Timestamptz()
   orders     Order[]
 
   @@id([userId, propertyId, startAt])
